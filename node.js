@@ -5,15 +5,15 @@ const stream = require('stream');
 const instream = fs.createReadStream('Indicators.csv');
 const outstream = new stream();
 const rl = readline.createInterface(instream, outstream);
-const data2ger = fs.createWriteStream('data2.json', {});
-const data2ger1 = fs.createWriteStream('data1.json', {});
-data2ger.write('[');
-data2ger.write('\n');
-data2ger.write('\n');
+const f1 = fs.createWriteStream('data1.json', {});
+const f2 = fs.createWriteStream('data2.json', {});
+f1.write('[');
+f1.write('\n');
+f1.write('\n');
 
-data2ger1.write('[');
-data2ger1.write('\n');
-data2ger1.write('\n');
+f2.write('[');
+f2.write('\n');
+f2.write('\n');
 
 
 const list = ['Afghanistan', 'Armenia', 'Azerbaijan', 'Bahrain', 'Bangladesh', 'Bhutan', 'Brunei', 'Cambodia', 'China', 'Cyprus',
@@ -63,11 +63,11 @@ rl.on('close', () => {
     c += 1;
 
     if (c === 55) {
-      data2ger.write(`${'{' + '\n' + '"Year" : ' + '"'}${v}"` + ',' + '\n' +
-                '"UValue" : ' + `"${a[v]}"` + ',' + '\n' + '"RValue" : ' + `"${b[v]}"` + '\n' + '}' + '\n' + '\n');
+      f1.write(`${'{' + '\n' + '"Year" : ' + '"'}${v}"` + ',' + '\n' +
+                '"UrbanValue" : ' + `"${a[v]}"` + ',' + '\n' + '"RuralValue" : ' + `"${b[v]}"` + '\n' + '}' + '\n' + '\n');
     } else {
-      data2ger.write(`${'{' + '\n' + '"Year" : ' + '"'}${v}"` + ',' + '\n' +
-                '"UValue" : ' + `"${a[v]}"` + ',' + '\n' + '"RValue" : ' + `"${b[v]}"` + '\n' + '},' + '\n' + '\n');
+      f1.write(`${'{' + '\n' + '"Year" : ' + '"'}${v}"` + ',' + '\n' +
+                '"UrbanValue" : ' + `"${a[v]}"` + ',' + '\n' + '"RuralValue" : ' + `"${b[v]}"` + '\n' + '},' + '\n' + '\n');
     }
   }
 
@@ -81,13 +81,13 @@ rl.on('close', () => {
   for (var v = 0; v < items.length; v += 1) {
     c1 += 1;
     if (c1 === 39) {
-      data2ger1.write(`${'{' + '\n' + '"CountryName" : ' + '"'}${items[v][0]}",` + '\n' +
+      f2.write(`${'{' + '\n' + '"CountryName" : ' + '"'}${items[v][0]}",` + '\n' +
                 `"Value" : ${items[v][1]}\n` + '}' + '\n' + '\n');
     } else {
-      data2ger1.write(`${'{' + '\n' + '"CountryName" : ' + '"'}${items[v][0]}",` + '\n' +
+      f2.write(`${'{' + '\n' + '"CountryName" : ' + '"'}${items[v][0]}",` + '\n' +
                 `"Value" : ${items[v][1]}\n` + '},' + '\n' + '\n');
     }
   }
-  data2ger1.write(']');
-  data2ger.write(']');
+  f2.write(']');
+  f1.write(']');
 });

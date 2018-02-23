@@ -49,7 +49,7 @@
         .append("g")
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")"); // load the data
-    d3.json("log1.json", function(error, data) {
+    d3.json("data2.json", function(error, data) {
         data.forEach(function(d) {
             d.CountryName = d.CountryName;
             d.Value = +d.Value;

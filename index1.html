@@ -33,11 +33,11 @@
     // define the line
     var valueline = d3.line()
         .x(function(d) { return x(d.Year); })
-        .y(function(d) { return y(d.UValue); });
+        .y(function(d) { return y(d.UrbanValue); });
     // define the line
     var valueline2 = d3.line()
         .x(function(d) { return x(d.Year); })
-        .y(function(d) { return y(d.RValue); });
+        .y(function(d) { return y(d.RuralValue); });
 
     // append the svg obgect to the body of the page
     // appends a 'group' element to 'svg'
@@ -56,8 +56,8 @@
         // format the log
         data.forEach(function(d) {
             d.Year = parseTime(d.Year);
-            d.UValue = +d.UValue;
-            d.RValue = +d.RValue;
+            d.UrbanValue = +d.UrbanValue;
+            d.RuralValue = +d.RuralValue;
         });
 
         // sort years ascending
@@ -68,7 +68,7 @@
         // Scale the range of the log
         x.domain(d3.extent(data, function(d) { return d.Year; }));
         y.domain([0, d3.max(data, function(d) {
-            return Math.max(d.UValue, d.RValue);
+            return Math.max(d.UrbanValue, d.RuralValue);
         })]);
 
         // Add the valueline path.
@@ -97,20 +97,28 @@
         svg.append("g")
             .call(d3.axisLeft(y));
 
-     // text label for the y axis svg.append("text") .attr("transform", "rotate(-90)") .attr("y", 0 - margin.left) .attr("x",0 - (height / 2)) .attr("dy", "1em") .style("text-anchor", "middle") .text("Population"); 
+     // text label for the y axis 
+
+          svg.append("text") 
+          .attr("transform", "rotate(-90)") 
+          .attr("y", 0 - margin.left) 
+          .attr("x",0 - (height / 2)) 
+          .attr("dy", "1em") 
+          .style("text-anchor", "middle") 
+          .text("Population"); 
 
         svg.append("text")
-            .attr("transform", "translate(" + (width + 3) + "," + y(data[0].RValue) + ")")
+            .attr("transform", "translate(" + (width + 3) + "," + y(data[0].UrbanValue) + ")")
             .attr("dy", ".35em")
             .attr("text-anchor", "start")
             .style("fill", "red")
-            .text("RValue");
+            .text("RuralValue");
         svg.append("text")
-            .attr("transform", "translate(" + (width + 3) + "," + y(data[0].UValue) + ")")
+            .attr("transform", "translate(" + (width + 3) + "," + y(data[0].RuralValue) + ")")
             .attr("dy", ".35em")
             .attr("text-anchor", "start")
             .style("fill", "steelblue")
-            .text("UValue");
+            .text("UrbanValue");
     }
     // Get the data
     d3.json("log.json", function(error, data) {
