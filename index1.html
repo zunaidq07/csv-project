@@ -60,12 +60,7 @@
             d.RuralValue = +d.RuralValue;
         });
 
-        // sort years ascending
-        //log.sort(function(a, b){
-        //return a["Year"]-b["Year"];
-        // })
-
-        // Scale the range of the log
+       // Scale the range of the log
         x.domain(d3.extent(data, function(d) { return d.Year; }));
         y.domain([0, d3.max(data, function(d) {
             return Math.max(d.UrbanValue, d.RuralValue);

@@ -35,28 +35,21 @@ var c1 = 0;
 
 rl.on('line', (line) => {
   const y = line.split(',');
-
+//for urban population
   if (y[0] === 'India' && (y[2] === 'Urban population (% of total)')) {
-   
-
-    a[y[4]] = [y[5]];
-    // console.data2(y[5]);
+   a[y[4]] = [y[5]];
   }
-
-
-  if (y[0] === 'India' && (y[2] === 'Rural population (% of total population)')) {
+//for rural population
+if (y[0] === 'India' && (y[2] === 'Rural population (% of total population)')) {
     b[y[4]] = [y[5]];
-    // console.data2(y[5]);
   }
-
-
-  if ((list1[y[0]] === 1) && (y[2] === 'Urban population' || y[2] === 'Rural population')) {
+//for urban population
+ if ((list1[y[0]] === 1) && (y[2] === 'Urban population' || y[2] === 'Rural population')) {
     if (list2[y[0]]) {
       list2[y[0]] += parseInt(y[5], 10);
     } else { list2[y[0]] = parseInt(y[5], 10); }
   }
 });
-
 
 rl.on('close', () => {
   for (var v in a, b) {
@@ -70,8 +63,6 @@ rl.on('close', () => {
                 '"UrbanValue" : ' + `"${a[v]}"` + ',' + '\n' + '"RuralValue" : ' + `"${b[v]}"` + '\n' + '},' + '\n' + '\n');
     }
   }
-
-
   const items = Object.keys(list2).map(key => [key, list2[key]]);
 
   // Sort the array based on the second element
